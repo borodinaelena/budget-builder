@@ -56,19 +56,19 @@ export class TableComponent {
 
 
 
-    onChangeValue(m) {
-        const newValue = m.value[1] - m.value[0];
-        m.controls[2].setValue(newValue);
+    onChangeValue(month) {
+        const newValue = month.value[1] - month.value[0];
+        month.controls[2].setValue(newValue);
 
         this.needSave.emit(this.all_categories);
 
     }
 
-    checkChange(v) {
-        if (v.value > 0) {
+    checkChange(monthValue) {
+        if (monthValue.value > 0) {
             return;
         }
-        v.setValue(0);
+        monthValue.setValue(0);
         this.needSave.emit(this.all_categories);
     }
 
@@ -110,16 +110,16 @@ export class TableComponent {
 
     getTotal(type, month, valueIndex) {
         let res = 0;
-        this[type].controls.map(cat => {
-            res += cat.value.values[month][valueIndex];
+        this[type].controls.map(category => {
+            res += category.value.values[month][valueIndex];
         });
         return res;
     }
 
-    openMenu(e, type?, i?) {
-        e.preventDefault();
+    openMenu($event, type?, index?) {
+        $event.preventDefault();
 
-        this.income_categories.controls.map((control, index) => {
+        this.income_categories.controls.map((control, i) => {
             const item = control.value;
             if (type && type === 'income_categories' && i === index) {
                 item['openMenu'] = true;
@@ -128,7 +128,7 @@ export class TableComponent {
             }
             control.setValue(item);
         });
-        this.expense_categories.controls.map((control, index) => {
+        this.expense_categories.controls.map((control, i) => {
             const item = control.value;
             if (type && type === 'expense_categories' && i === index) {
                 item['openMenu'] = true;

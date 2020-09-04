@@ -32,10 +32,10 @@ export class DataService {
 
     getControllers(data) {
         const controllers = [];
-        data.map(cat => {
+        data.map(category => {
             controllers.push(new FormGroup({
-                name: new FormControl(cat.name),
-                values: new FormArray(this.getArrayData(cat.values, true)),
+                name: new FormControl(category.name),
+                values: new FormArray(this.getArrayData(category.values, true)),
                 openMenu: new FormControl(false)
             }));
         });
@@ -45,15 +45,9 @@ export class DataService {
 
     public getArrayData(values, isArray): AbstractControl[] {
         const array: AbstractControl[] = [];
-        if (isArray) {
-            values.map(v => {
-                array.push(new FormArray(this.getArrayData(v, false)));
-            });
-        } else {
-            values.map(v => {
-                array.push(new FormControl(v));
-            });
-        }
+        values.map(v => {
+            array.push(isArray ? new FormArray(this.getArrayData(v, false)) : new FormControl(v));
+        });
         return array;
     }
 }

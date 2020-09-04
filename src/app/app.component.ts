@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DataService } from './data.service';
 
+const DEFAULT_YEAR = '2020';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,7 +11,7 @@ import { DataService } from './data.service';
 })
 
 export class AppComponent {
-  selectedItem = '2020';
+  selectedItem = DEFAULT_YEAR;
   worker;
   data: FormGroup;
 
