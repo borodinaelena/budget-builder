@@ -1,8 +1,14 @@
 <nb-layout>
   <nb-layout-header class="header">
-
+    Setup Financial
   </nb-layout-header>
-  <nb-layout-column>
-  
+  <nb-layout-column class="container">
+    <nb-select [(selected)]="selectedItem" class="mb-4" (selectedChange)="getData($event)">
+      <nb-option value="2020">2020</nb-option>
+      <nb-option value="2019">2019</nb-option>
+      <nb-option value="2018">2018</nb-option>
+    </nb-select>
+
+    <app-table (needSave)="saveData($event)" [formData]="data"></app-table>
   </nb-layout-column>
 </nb-layout>

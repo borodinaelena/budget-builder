@@ -1,0 +1,147 @@
+<form [formGroup]="all_categories">
+
+    <div class="d-flex">
+      <div class="col-2 box p-0"></div>
+      <div class="col-3 p-0" *ngFor="let m of months">
+        <div class="d-flex flex-column">
+          <div class="d-flex justify-content-center box font-weight-bold"> {{m}}</div>
+          <div class="d-flex justify-content-around">
+            <div class="box col text-center"> Projected</div>
+            <div class="box col text-center"> Actual</div>
+            <div class="box col text-center"> Variance</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="font-weight-bold box-title"> Income Categories</div>
+    <div formArrayName='income_categories'>
+      <div *ngFor="let item of all_categories.get('income_categories').controls; let i = index" class="d-flex"  (contextmenu)="openMenu($event,'income_categories',i)">
+        <div [formGroup]="item" class="form p-0">
+          <div formArrayName="values" class="d-flex">
+            <div class="col-2 box pt-0 pb-0 d-flex align-items-center">
+                {{item.value.name}}
+                <div class='menu' *ngIf="item.value.openMenu">
+                    <div (click)="remove('income_categories',i)" (clickOutside)="openMenu($event)">Delete</div>
+                </div>
+            </div>
+            <div class="p-0 col-3" *ngFor="let m of item.get('values').controls; let mi = index">
+              <div class="d-flex">
+                <div class="d-flex justify-content-around w-100">
+                  <div *ngFor="let v of item.get('values').controls[mi].controls; let vi = index"
+                    class="box col-4 text-center p-0">
+                    <input *ngIf="vi!==2" type="number" nbInput [formControl]="v" class="w-100"
+                      (input)="onChangeValue(m,mi)" (change)="checkChange(v)">
+                    <div *ngIf="vi===2" class="d-flex align-items-center h-100 w-100 justify-content-center">
+                      {{v.value}}</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="font-weight-bold box-title p-0">
+      <div class="col-2 p-0">
+        <input nbInput placeholder="Add New Category" (change)="addCategory($event, 'income_categories')"
+          class="w-100">
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="col-2 box pl-3 pt-0 pr-0 pb-0 font-weight-bold d-flex align-items-center">Total Incomes</div>
+      <div class="col-3 p-0" *ngFor="let m of months; let i=index">
+        <div class="d-flex flex-column">
+          <div class="d-flex justify-content-around">
+            <div class="box col text-center"> {{getTotal('income_categories',i,0)}}</div>
+            <div class="box col text-center"> {{getTotal('income_categories',i,1)}}</div>
+            <div class="box col text-center"></div>
+          </div>
+        </div>
+      </div>
+      <!-- formControlName -->
+    </div>
+    <div class="font-weight-bold box-title"> Expense Categories</div>
+    <div formArrayName='expense_categories'>
+      <div *ngFor="let item of all_categories.get('expense_categories').controls; let i = index" class="d-flex" (contextmenu)="openMenu($event)">
+        <div [formGroup]="item" class="form p-0">
+          <div formArrayName="values" class="d-flex">
+            <div class="col-2 box pt-0 pb-0 d-flex align-items-center">{{item.value.name}}</div>
+            <div class="p-0 col-3" *ngFor="let m of item.get('values').controls; let mi = index">
+              <div class="d-flex">
+                <div class="d-flex justify-content-around w-100">
+                  <div *ngFor="let v of item.get('values').controls[mi].controls; let vi = index"
+                    class="box col-4 text-center p-0">
+                    <input *ngIf="vi!==2" type="number" nbInput [formControl]="v" class="w-100"
+                      (input)="onChangeValue(m)" (change)="checkChange(v)">
+                    <div *ngIf="vi===2" class="d-flex align-items-center h-100 w-100 justify-content-center">
+                      {{v.value}}</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="font-weight-bold box-title p-0">
+      <div class="col-2 p-0">
+        <input nbInput placeholder="Add New Category" (change)="addCategory($event, 'expense_categories')"
+          class="w-100">
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="col-2 box pl-3 pt-0 pr-0 pb-0 font-weight-bold d-flex align-items-center">Total Expenses</div>
+      <div class="col-3 p-0" *ngFor="let m of months; let i=index">
+        <div class="d-flex flex-column">
+          <div class="d-flex justify-content-around">
+            <div class="box col text-center"> {{getTotal('expense_categories',i,0)}}</div>
+            <div class="box col text-center"> {{getTotal('expense_categories',i,1)}}</div>
+            <div class="box col text-center"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="font-weight-bold box-title"></div>
+
+    <div class="d-flex">
+      <div class="col-2 box pl-3 pt-0 pr-0 pb-0  d-flex align-items-center font-weight-bold">Opening Balance</div>
+      <div class="col-3 p-0" *ngFor="let m of months">
+        <div class="d-flex flex-column">
+          <div class="d-flex justify-content-center box"> 0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex">
+      <div class="col-2 box pl-3 pt-0 pr-0 pb-0  d-flex align-items-center font-weight-bold">Total Incomes</div>
+      <div class="col-3 p-0" *ngFor="let m of months; let i=index">
+        <div class="d-flex flex-column">
+          <div class="d-flex justify-content-center box"> {{getTotal('income_categories',i,1)}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex">
+      <div class="col-2 box pl-3 pt-0 pr-0 pb-0  d-flex align-items-center font-weight-bold">Total Expenses</div>
+      <div class="col-3 p-0" *ngFor="let m of months ; let i=index">
+        <div class="d-flex flex-column">
+          <div class="d-flex justify-content-center box">  {{getTotal('expense_categories',i,1)}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex">
+      <div class="col-2 box pl-3 pt-0 pr-0 pb-0  d-flex align-items-center font-weight-bold">Closing Balance</div>
+      <div class="col-3 p-0" *ngFor="let m of months">
+        <div class="d-flex flex-column">
+          <div class="d-flex justify-content-center box"> 0</div>
+        </div>
+      </div>
+    </div>
+
+  </form>

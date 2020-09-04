@@ -14,13 +14,19 @@ import {
   NbButtonModule,
   NbTreeGridModule,
   NbToastrModule,
-  NbCardModule
+  NbCardModule, NbSelectModule
 } from '@nebular/theme';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { TableComponent } from './table/table.component';
+import { ClickOutsideModule } from 'ng-click-outside';
+import { MatDialogModule } from '@angular/material/dialog';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +45,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NbTreeGridModule,
     NbCardModule,
     AppRoutingModule,
+    Ng2SmartTableModule,
     NbToastrModule.forRoot(),
+    NbSelectModule,
+    ClickOutsideModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

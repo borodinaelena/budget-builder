@@ -1,0 +1,42 @@
+@import '~@nebular/theme/styles/theming';
+@import '~@nebular/theme/styles/themes/default';
+
+form{
+    overflow-y: scroll;
+    border-left: 2px solid grey;
+    border-right: 2px solid grey;
+    min-width: 1200px;
+}
+
+.form{
+    padding-bottom: 2rem;
+    border-left: 2px solid grey;
+    border-right: 2px solid grey;
+    min-width: 1200px;
+}
+
+.box{
+    border: 1px solid grey;
+    padding: 1rem;
+}
+
+.box-title{
+    padding: 1rem;   
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.menu{
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    background-color: lightcoral;
+}

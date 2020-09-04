@@ -1,2 +1,16 @@
 @import '~@nebular/theme/styles/theming';
 @import '~@nebular/theme/styles/themes/default';
+
+.container{
+    min-width: 1300px;
+    max-width: 100%;
+}
+
+
+::ng-deep .scrollable-container{
+    min-width: 1300px;
+
+    .container{
+        margin: 0 1rem;
+    }
+}
